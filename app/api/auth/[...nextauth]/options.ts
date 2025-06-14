@@ -2,7 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
-import { prisma } from "../../../../db";
+import { prisma } from "@/index";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -72,4 +72,11 @@ export const authOptions: NextAuthOptions = {
     //         return session;
     //     }
     // }
+    secret: process.env.JWT_SECRET || "secret",
+    callbacks: {
+        async session({ token, session }: any) {
+            session.user.id = token.sub
+            return session
+        }
+    }
 }
