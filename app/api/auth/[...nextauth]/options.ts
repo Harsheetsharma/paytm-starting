@@ -57,21 +57,6 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GITHUB_SECRET as string
         }),
     ],
-    // callbacks: {
-    //     async jwt({ token, user }) {
-    //         if (user) {
-    //             token.username = (user as any).username
-    //         }
-    //         return token;
-    //     },
-    //     async session({ session, token }) {
-    //         if (token?.username) {
-    //             (session.user as any).username = token.username;
-
-    //         }
-    //         return session;
-    //     }
-    // }
     secret: process.env.JWT_SECRET || "secret",
     callbacks: {
         async session({ token, session }: any) {
